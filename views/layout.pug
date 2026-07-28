@@ -1,0 +1,41 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    meta(name="description" content="ReelVault — a thoughtful movie collection")
+    title #{title} · ReelVault
+    link(rel="preconnect" href="https://fonts.googleapis.com")
+    link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+    link(href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet")
+    link(rel="stylesheet" href="/css/style.css")
+    script(src="/js/app.js" defer)
+  body
+    header.site-header
+      .nav-wrap
+        a.brand(href="/movies" aria-label="ReelVault home")
+          span.brand-mark R
+          span ReelVault
+        button.nav-toggle(type="button" aria-label="Toggle navigation" aria-expanded="false")
+          span
+          span
+        nav.site-nav(aria-label="Main navigation")
+          a.active(href="/movies") Browse
+          a.decorative-link(href="#" aria-disabled="true") Add movie
+          a.decorative-link(href="#" aria-disabled="true") My movies
+          a.decorative-link(href="#" aria-disabled="true") Log in
+          a.button.button-small.decorative-link(href="#" aria-disabled="true") Join ReelVault
+
+    main
+      block content
+
+    footer.site-footer
+      .container.footer-grid
+        div
+          a.brand.footer-brand(href="/movies")
+            span.brand-mark R
+            span ReelVault
+          p A thoughtful place to collect, rate, and share the films worth remembering.
+        div.footer-meta
+          p CPAN 212 · Modern Web Technologies
+          p Built by Alexis, Setayesh & Rolando

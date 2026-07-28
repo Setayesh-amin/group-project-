@@ -1,0 +1,62 @@
+extends ../layout
+
+block content
+  section.hero
+    .container.hero-inner
+      .hero-copy
+        p.eyebrow A community film shelf
+        h1 Films worth #[em remembering.]
+        p Browse a small, carefully selected collection of stories that stay with you long after the credits.
+        a.button(href="#collection") Explore the collection
+      .hero-stat
+        span= total
+        p Films in the collection
+        p.hero-average ★ Thoughtfully selected
+
+  section#collection.collection
+    .container
+      .section-heading
+        div
+          p.eyebrow Discover
+          h2 Browse the collection
+
+        form.filters(action="/movies" method="get")
+          label.sr-only(for="search") Search movies
+          input#search(type="search" name="q" value=filters.q placeholder="Search by title or story…")
+          label.sr-only(for="genre") Filter by genre
+          select#genre(name="genre" onchange="this.form.submit()")
+            option(value="") All genres
+            each item in ['Animation', 'Comedy', 'Drama', 'Fantasy', 'Sci-Fi', 'Thriller']
+              option(value=item selected=filters.genre === item)= item
+          label.sr-only(for="sort") Sort movies
+          select#sort(name="sort" onchange="this.form.submit()")
+            option(value="featured" selected=filters.sort === 'featured') Featured
+            option(value="rating" selected=filters.sort === 'rating') Top rated
+            option(value="newest" selected=filters.sort === 'newest') Newest
+            option(value="title" selected=filters.sort === 'title') A–Z
+          button.icon-button(type="submit" aria-label="Search") →
+
+      if movies.length
+        .movie-grid
+          each movie, index in movies
+            article.movie-card
+              .poster(class=`poster-${movie.color}`)
+                span.poster-initial= movie.name.charAt(0)
+                span.poster-number= String(index + 1).padStart(2, '0')
+                span.rating-badge ★ #{movie.rating}
+              .movie-card-body
+                .movie-meta
+                  span= movie.year
+                  span ·
+                  span= movie.genres.join(' / ')
+                h3= movie.name
+                p= movie.description
+                .card-footer
+                  span Curated selection
+                  a.decorative-link(href="#" aria-disabled="true") View film →
+      else
+        .empty-state
+          span.empty-mark ◌
+          h3 No films found
+          p Try another title or choose a different genre.
+          a.button(href="/movies") Clear filters
