@@ -10,7 +10,7 @@ const movies = [
     genres: ['Comedy', 'Drama'],
     rating: 8.1,
     description: 'A legendary concierge and his young protégé become wrapped up in a story of friendship, art, and adventure.',
-    color: 'coral'
+    image: '/images/movies/grand-budapest.jpg'
   },
   {
     name: 'Arrival',
@@ -18,7 +18,7 @@ const movies = [
     genres: ['Sci-Fi', 'Drama'],
     rating: 7.9,
     description: 'A linguist works to understand mysterious visitors and discovers that language can reshape how we see time.',
-    color: 'green'
+    image: '/images/movies/arrival.jpg'
   },
   {
     name: 'Spirited Away',
@@ -26,7 +26,7 @@ const movies = [
     genres: ['Animation', 'Fantasy'],
     rating: 8.6,
     description: 'A young girl enters a magical world and must find the courage to save her family and return home.',
-    color: 'gold'
+    image: '/images/movies/spirited-away.jpg'
   },
   {
     name: 'Moonlight',
@@ -34,7 +34,7 @@ const movies = [
     genres: ['Drama'],
     rating: 7.4,
     description: 'A tender portrait of identity, connection, and growing up, told across three defining chapters.',
-    color: 'blue'
+    image: '/images/movies/moonlight.jpg'
   },
   {
     name: 'Parasite',
@@ -42,7 +42,7 @@ const movies = [
     genres: ['Thriller', 'Drama'],
     rating: 8.5,
     description: 'Two families from opposite worlds become unexpectedly intertwined in a sharp and suspenseful story.',
-    color: 'red'
+    image: '/images/movies/parasite.jpg'
   },
   {
     name: 'The Farewell',
@@ -50,7 +50,7 @@ const movies = [
     genres: ['Comedy', 'Drama'],
     rating: 7.5,
     description: 'A family gathers under the guise of a wedding to share love, laughter, and an unspoken goodbye.',
-    color: 'purple'
+    image: '/images/movies/the-farewell.jpg'
   }
 ];
 

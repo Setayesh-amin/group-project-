@@ -13,11 +13,12 @@ test('browse page renders the movie collection', () => {
       genres: ['Sci-Fi'],
       rating: 7.9,
       description: 'A story.',
-      color: 'green'
+      image: '/images/movies/arrival.jpg'
     }],
     filters: { q: '', genre: '', sort: 'featured' }
   });
 
   assert.match(html, /Browse the collection/);
   assert.match(html, /Arrival/);
+  assert.match(html, /images\/movies\/arrival\.jpg/);
 });

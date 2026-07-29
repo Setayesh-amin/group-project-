@@ -40,8 +40,8 @@ block content
         .movie-grid
           each movie, index in movies
             article.movie-card
-              .poster(class=`poster-${movie.color}`)
-                span.poster-initial= movie.name.charAt(0)
+              .poster
+                img.movie-image(src=movie.image alt=`Original artwork for ${movie.name}` loading="lazy")
                 span.poster-number= String(index + 1).padStart(2, '0')
                 span.rating-badge ★ #{movie.rating}
               .movie-card-body

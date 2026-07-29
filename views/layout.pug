@@ -14,8 +14,11 @@ html(lang="en")
     header.site-header
       .nav-wrap
         a.brand(href="/movies" aria-label="ReelVault home")
-          span.brand-mark R
-          span ReelVault
+          span.brand-mark
+            span R
+          span.brand-copy
+            strong ReelVault
+            small Film collection
         button.nav-toggle(type="button" aria-label="Toggle navigation" aria-expanded="false")
           span
           span
@@ -23,19 +26,61 @@ html(lang="en")
           a.active(href="/movies") Browse
           a.decorative-link(href="#" aria-disabled="true") Add movie
           a.decorative-link(href="#" aria-disabled="true") My movies
-          a.decorative-link(href="#" aria-disabled="true") Log in
-          a.button.button-small.decorative-link(href="#" aria-disabled="true") Join ReelVault
+          a.mobile-only.decorative-link(href="#" aria-disabled="true") Log in
+          a.mobile-only.decorative-link(href="#" aria-disabled="true") Join ReelVault ↗
+        .nav-actions
+          a.login-link.decorative-link(href="#" aria-disabled="true") Log in
+          a.button.button-small.join-button.decorative-link(href="#" aria-disabled="true")
+            span Join ReelVault
+            span.button-arrow ↗
 
     main
       block content
 
     footer.site-footer
+      .footer-orbit.footer-orbit-one
+      .footer-orbit.footer-orbit-two
+      .container.footer-top
+        .footer-intro
+          p.eyebrow The credits are only the beginning
+          h2 Keep the stories that #[em stay with you.]
+        a.footer-cta.decorative-link(href="#" aria-disabled="true")
+          span
+            small Start your collection
+            strong Join ReelVault
+          span.footer-cta-arrow ↗
+
+      .container.footer-divider
+
       .container.footer-grid
-        div
+        .footer-brand-column
           a.brand.footer-brand(href="/movies")
-            span.brand-mark R
-            span ReelVault
-          p A thoughtful place to collect, rate, and share the films worth remembering.
-        div.footer-meta
-          p CPAN 212 · Modern Web Technologies
-          p Built by Alexis, Setayesh & Rolando
+            span.brand-mark
+              span R
+            span.brand-copy
+              strong ReelVault
+              small Film collection
+          p A thoughtful home for collecting, rating, and sharing the films worth remembering.
+        .footer-links
+          .footer-column
+            p.footer-label Explore
+            a(href="/movies") Browse films
+            a.decorative-link(href="#" aria-disabled="true") Top rated
+            a.decorative-link(href="#" aria-disabled="true") New releases
+          .footer-column
+            p.footer-label Collection
+            a.decorative-link(href="#" aria-disabled="true") Add a movie
+            a.decorative-link(href="#" aria-disabled="true") My movies
+            a.decorative-link(href="#" aria-disabled="true") Sign in
+          .footer-column
+            p.footer-label Follow
+            a.decorative-link(href="#" aria-disabled="true") Instagram ↗
+            a.decorative-link(href="#" aria-disabled="true") Letterboxd ↗
+            a.decorative-link(href="#" aria-disabled="true") GitHub ↗
+
+      .container.footer-bottom
+        p © 2026 ReelVault. Made for people who watch the credits.
+        .footer-course
+          span.footer-dot
+          span CPAN 212 · Modern Web Technologies
+        p Built by Alexis, Setayesh & Rolando
