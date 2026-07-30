@@ -1,0 +1,77 @@
+extends layout
+
+block content
+  section.hero
+    .container.hero-inner
+      .hero-copy
+        p.eyebrow Movie Database
+
+        h1
+          | Discover
+          em  Cinema
+
+        p
+          | Explore movies, reviews, ratings, and details
+          | from our personal movie collection.
+
+        a.button(href="/movies")
+          | Browse Movies
+
+      .hero-stat
+        span= movieCount || 0
+        p Films in the collection
+        p.hero-average ★ Thoughtfully selected
+
+  section.collection
+    .container
+      .section-heading
+        div
+          p.eyebrow Recently Added
+          h2 Newest Movies
+
+        a.button(href="/movies")
+          | View All
+
+      if movies.length
+        .movie-grid
+          each movie, index in movies
+            article.movie-card
+              .poster
+                img.movie-image(
+                  src="/images/default.jpg"
+                  alt=movie.name
+                )
+
+                span.poster-number
+                  = String(index + 1).padStart(2, "0")
+
+                span.rating-badge
+                  | ★ #{movie.rating}
+
+              .movie-card-body
+                .movie-meta
+                  span= movie.year
+                  span •
+                  span= Array.isArray(movie.genres) ? movie.genres.join(" / ") : movie.genres
+
+                h3
+                  a(href=`/movies/${movie._id}`)
+                    = movie.name
+                p= movie.description
+
+                .card-footer
+                  span Recently Added
+
+                  a(href=`/movies/${movie._id}`)
+                    | View →
+
+      else
+        .empty-state
+          span.empty-mark ★
+
+          h3 No Movies Yet
+
+          p Help us grow our collection.
+
+          a.button(href="/movies/add")
+            | Add Movie

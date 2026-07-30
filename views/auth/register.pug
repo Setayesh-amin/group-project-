@@ -1,0 +1,69 @@
+extends ../layout
+
+block content
+  section.collection
+    .container
+      .section-heading
+        div
+          p.eyebrow Join ReelVault
+          h2 Create an Account
+
+      .auth-card
+        if errors && errors.length
+          .error-box
+            each error in errors
+              p= error.msg
+
+        form.auth-form(
+          action="/register"
+          method="POST"
+        )
+
+          label(for="name")
+            | Name
+
+          input#name(
+            type="text"
+            name="name"
+            placeholder="Your name"
+            value=formUser ? formUser.name : ""
+          )
+
+          label(for="email")
+            | Email
+
+          input#email(
+            type="email"
+            name="email"
+            placeholder="Email address"
+            value=formUser ? formUser.email : ""
+          )
+
+          label(for="password")
+            | Password
+
+          input#password(
+            type="password"
+            name="password"
+            placeholder="Create a password"
+          )
+
+          label(for="confirmPassword")
+            | Confirm Password
+
+          input#confirmPassword(
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm password"
+          )
+
+          button.button(
+            type="submit"
+          )
+            | Create Account
+
+
+        p.auth-footer
+          | Already have an account?
+          a(href="/login")
+            | Login

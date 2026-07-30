@@ -1,0 +1,57 @@
+extends ../layout
+
+block content
+
+  section.collection
+    .container
+
+      .section-heading
+        div
+          p.eyebrow Welcome!
+          h2 Login to ReelVault
+
+
+      .auth-card
+
+        if errors && errors.length
+          .error-box
+            each error in errors
+              p= error.msg
+
+
+        form.auth-form(
+          action="/login"
+          method="POST"
+        )
+
+          label(for="email")
+            | Email
+
+          input#email(
+            type="email"
+            name="email"
+            placeholder="Enter your email"
+            value=user ? user.email : ""
+          )
+
+
+          label(for="password")
+            | Password
+
+          input#password(
+            type="password"
+            name="password"
+            placeholder="Enter your password"
+          )
+
+
+          button.button(
+            type="submit"
+          )
+            | Login
+
+
+        p.auth-footer
+          | Don't have an account?
+          a(href="/register")
+            | Join ReelVault

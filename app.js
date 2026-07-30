@@ -1,9 +1,84 @@
-const path = require('path');
-const express = require('express');
+const express = require("express");
+const mongoose = require("mongoose");
+const session = require("express-session");
+const methodOverride = require("method-override");
+const path = require("path");
+
+const movieRoutes = require("./routes/movies");
+const authRoutes = require("./routes/auth");
+const Movie = require("./models/Movie"); 
 
 const app = express();
 
-const movies = [
+
+mongoose.connect("mongodb://127.0.0.1/movieDB");
+
+app.get("/reset-session", (req, res) => {
+    req.session.destroy(() => {
+        res.redirect("/register");
+    });
+});
+
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views"));
+
+
+app.use(express.urlencoded({ extended: true }));
+
+app.use(session({
+    secret: "secretkey",
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use(express.static("public"));
+
+app.use(methodOverride("_method"));
+
+
+/* app.use((req, res, next) => {
+    res.locals.user = req.session.user;
+    next();
+}); */
+app.use((req, res, next) => {
+
+    console.log("SESSION USER:", req.session.user);
+    
+    res.locals.user = req.session.user;
+
+    next();
+});
+
+// HOME PAGE
+app.get("/", async (req, res) => {
+  try {
+    const movies = await Movie.find()
+      .sort({ _id: -1 })   // Newest first
+      .limit(6);           // Show only the 6 newest
+
+      res.render("index", {
+        title: "Home",
+        movies,
+        movieCount: movies.length
+      });
+
+  } catch (err) {
+    console.error(err);
+    res.send("Database Error");
+  }
+});
+
+
+app.use("/movies", movieRoutes);
+
+app.use("/", authRoutes);
+
+
+app.listen(3000, () => {
+    console.log("Server running on port 3000");
+});
+
+/*const movies = [
   {
     name: 'The Grand Budapest Hotel',
     year: 2014,
@@ -52,47 +127,5 @@ const movies = [
     description: 'A family gathers under the guise of a wedding to share love, laughter, and an unspoken goodbye.',
     image: '/images/movies/the-farewell.jpg'
   }
-];
+];*/
 
-app.set('view engine', 'pug');
-app.set('views', path.join(__dirname, 'views'));
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.get('/', (req, res) => res.redirect('/movies'));
-
-app.get('/movies', (req, res) => {
-  const query = String(req.query.q || '').trim().toLowerCase();
-  const genre = String(req.query.genre || '');
-  const sort = String(req.query.sort || 'featured');
-
-  let results = movies.filter((movie) => {
-    const matchesQuery = !query ||
-      movie.name.toLowerCase().includes(query) ||
-      movie.description.toLowerCase().includes(query);
-    const matchesGenre = !genre || movie.genres.includes(genre);
-    return matchesQuery && matchesGenre;
-  });
-
-  if (sort === 'rating') results.sort((a, b) => b.rating - a.rating);
-  if (sort === 'newest') results.sort((a, b) => b.year - a.year);
-  if (sort === 'title') results.sort((a, b) => a.name.localeCompare(b.name));
-
-  res.render('movies/index', {
-    title: 'Discover movies',
-    movies: results,
-    total: movies.length,
-    filters: { q: req.query.q || '', genre, sort }
-  });
-});
-
-app.use((req, res) => res.redirect('/movies'));
-
-const port = process.env.PORT || 3000;
-
-if (require.main === module) {
-  app.listen(port, () => {
-    console.log(`ReelVault is running at http://localhost:${port}`);
-  });
-}
-
-module.exports = app;

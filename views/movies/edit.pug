@@ -1,0 +1,15 @@
+h1 Edit Movie
+
+form(method="POST")
+
+    input(type="text" name="name" value=movie.name)
+
+    textarea(name="description")= movie.description
+
+    input(type="number" name="year" value=movie.year)
+
+    input(type="text" name="genres" value=movie.genres)
+
+    input(type="number" name="rating" value=movie.rating)
+
+    button Update

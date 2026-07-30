@@ -3,39 +3,118 @@ html(lang="en")
   head
     meta(charset="utf-8")
     meta(name="viewport" content="width=device-width, initial-scale=1")
-    meta(name="description" content="ReelVault — a thoughtful movie collection")
-    meta(name="theme-color" content="#111b2c")
-    title #{title} · ReelVault
-    link(rel="icon" href="/images/reelvault-mark.svg" type="image/svg+xml")
-    link(rel="apple-touch-icon" href="/images/reelvault-mark.svg")
-    link(rel="preconnect" href="https://fonts.googleapis.com")
-    link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
-    link(href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet")
-    link(rel="stylesheet" href="/css/style.css")
-    script(src="/js/app.js" defer)
+
+    meta(
+      name="description"
+      content="ReelVault — a thoughtful movie collection"
+    )
+
+    meta(
+      name="theme-color"
+      content="#111b2c"
+    )
+
+    title #{title || "ReelVault"}
+
+    link(
+      rel="icon"
+      href="/images/reelvault-mark.svg"
+      type="image/svg+xml"
+    )
+
+    link(
+      rel="apple-touch-icon"
+      href="/images/reelvault-mark.svg"
+    )
+
+    link(
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    )
+
+    link(
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    )
+
+    link(
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+      rel="stylesheet"
+    )
+
+    link(
+      rel="stylesheet"
+      href="/css/style.css"
+    )
+
+    script(
+      src="/js/app.js"
+      defer
+    )
+
+
   body
+  - console.log("LAYOUT USER:", user)
     header.site-header
       .nav-wrap
-        a.brand(href="/movies" aria-label="ReelVault home")
+        a.brand(href="/" aria-label="ReelVault home")
           span.brand-mark
-            img(src="/images/reelvault-mark.svg" alt="" width="42" height="42")
+            img(
+              src="/images/reelvault-mark.svg"
+              alt=""
+              width="42"
+              height="42"
+            )
+
           span.brand-copy
             strong ReelVault
             small Film collection
-        button.nav-toggle(type="button" aria-label="Toggle navigation" aria-expanded="false")
+
+
+        button.nav-toggle(
+          type="button"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+        )
           span
           span
+
+        p DEBUG USER: #{user}
+
         nav.site-nav(aria-label="Main navigation")
-          a.active(href="/movies") Browse
-          a.decorative-link(href="#" aria-disabled="true") Add movie
-          a.decorative-link(href="#" aria-disabled="true") My movies
-          a.mobile-only.decorative-link(href="#" aria-disabled="true") Log in
-          a.mobile-only.decorative-link(href="#" aria-disabled="true") Join ReelVault ↗
+          a.active(href="/movies")
+            | Collection
+
+          if user
+            a(
+              href="/movies/add"
+            )
+              | Add movie
+
+            a(
+              href="/movies/my"
+            )
+              | My movies
+
         .nav-actions
-          a.login-link.decorative-link(href="#" aria-disabled="true") Log in
-          a.button.button-small.join-button.decorative-link(href="#" aria-disabled="true")
-            span Join ReelVault
-            span.button-arrow ↗
+          if user
+            a.login-link(
+              href="/logout"
+            )
+              | Logout
+
+          else
+            a.login-link(
+              href="/login"
+            )
+              | Log in
+
+            a.button.button-small.join-button(
+              href="/register"
+            )
+              span Join ReelVault
+              span.button-arrow ↗
 
     main
       block content
@@ -43,47 +122,106 @@ html(lang="en")
     footer.site-footer
       .footer-orbit.footer-orbit-one
       .footer-orbit.footer-orbit-two
+
       .container.footer-top
         .footer-intro
-          p.eyebrow The credits are only the beginning
-          h2 Keep the stories that #[em stay with you.]
-        a.footer-cta.decorative-link(href="#" aria-disabled="true")
-          span
-            small Start your collection
-            strong Join ReelVault
-          span.footer-cta-arrow ↗
+          p.eyebrow
+            | The credits are only the beginning
+          h2
+            | Keep the stories that 
+            em stay with you.
 
+     
       .container.footer-divider
+
 
       .container.footer-grid
         .footer-brand-column
-          a.brand.footer-brand(href="/movies")
+          a.brand.footer-brand(
+            href="/movies"
+          )
             span.brand-mark
-              img(src="/images/reelvault-mark.svg" alt="" width="42" height="42")
+              img(
+                src="/images/reelvault-mark.svg"
+                alt=""
+                width="42"
+                height="42"
+              )
+
             span.brand-copy
               strong ReelVault
               small Film collection
-          p A thoughtful home for collecting, rating, and sharing the films worth remembering.
+
+          p
+            | A thoughtful home for collecting,
+            | rating, and sharing the films worth remembering.
+
+
+
+
         .footer-links
           .footer-column
-            p.footer-label Explore
-            a(href="/movies") Browse films
-            a.decorative-link(href="#" aria-disabled="true") Top rated
-            a.decorative-link(href="#" aria-disabled="true") New releases
+            p.footer-label
+              | Explore
+
+            a(
+              href="/movies"
+            )
+              | Browse films
+
+            a(
+              href="/movies"
+            )
+              | Top rated
+
+            a(
+              href="/movies"
+            )
+              | New releases
+
+
           .footer-column
-            p.footer-label Collection
-            a.decorative-link(href="#" aria-disabled="true") Add a movie
-            a.decorative-link(href="#" aria-disabled="true") My movies
-            a.decorative-link(href="#" aria-disabled="true") Sign in
+            p.footer-label
+              | Collection
+
+            a(
+              href="/movies/add"
+            )
+              | Add a movie
+
+            a(
+              href="/movies/my"
+            )
+              | My movies
+
           .footer-column
-            p.footer-label Follow
-            a.decorative-link(href="#" aria-disabled="true") Instagram ↗
-            a.decorative-link(href="#" aria-disabled="true") Letterboxd ↗
-            a.decorative-link(href="#" aria-disabled="true") GitHub ↗
+            p.footer-label
+              | Stay conncted
+
+            a(
+              href="#"
+            )
+              | Instagram ↗
+
+            a(
+              href="#"
+            )
+              | X ↗
+
+            a(
+              href="#"
+            )
+              | GitHub ↗
+
 
       .container.footer-bottom
-        p © 2026 ReelVault. Made for people who watch the credits.
+        p
+          | © 2026 ReelVault. Made for people who watch the credits.
+
         .footer-course
           span.footer-dot
-          span CPAN 212 · Modern Web Technologies
-        p Built by Alexis, Setayesh & Rolando
+          span
+            | CPAN 212 · Modern Web Technologies
+
+        p
+          | Built by Alexis, Setayesh & Rolando

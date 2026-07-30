@@ -7,7 +7,6 @@ block content
         p.eyebrow A community film shelf
         h1 Films worth #[em remembering.]
         p Browse a small, carefully selected collection of stories that stay with you long after the credits.
-        a.button(href="#collection") Explore the collection
       .hero-stat
         span= total
         p Films in the collection
@@ -20,6 +19,7 @@ block content
           p.eyebrow Discover
           h2 Browse the collection
 
+        //MOVIE FITLER
         form.filters(action="/movies" method="get")
           label.sr-only(for="search") Search movies
           input#search(type="search" name="q" value=filters.q placeholder="Search by title or story…")
@@ -41,22 +41,43 @@ block content
           each movie, index in movies
             article.movie-card
               .poster
-                img.movie-image(src=movie.image alt=`Original artwork for ${movie.name}` loading="lazy")
-                span.poster-number= String(index + 1).padStart(2, '0')
-                span.rating-badge ★ #{movie.rating}
+                img.movie-image(
+                  src="/images/default.jpg"
+                  alt=movie.name
+                )
+
+                span.poster-number
+                  = String(index + 1).padStart(2, "0")
+
+                span.rating-badge
+                  | ★ #{movie.rating}
+
+
               .movie-card-body
                 .movie-meta
                   span= movie.year
-                  span ·
-                  span= movie.genres.join(' / ')
-                h3= movie.name
+                  span •
+                  span= Array.isArray(movie.genres) ? movie.genres.join(" / ") : movie.genres
+
+
+                h3
+
+                  a(href=`/movies/${movie._id}`)
+                    = movie.name
                 p= movie.description
+
+
                 .card-footer
-                  span Curated selection
-                  a.decorative-link(href="#" aria-disabled="true") View film →
+                  span Movie Details
+                  a(href=`/movies/${movie._id}`)
+                    | View →
+
       else
         .empty-state
-          span.empty-mark ◌
-          h3 No films found
-          p Try another title or choose a different genre.
-          a.button(href="/movies") Clear filters
+          span.empty-mark ★
+
+          h3 No Movies Found
+          p Help us grow our collection.
+
+          a.button(href="/movies/add")
+            | Add Movie
