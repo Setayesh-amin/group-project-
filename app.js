@@ -35,19 +35,11 @@ app.use(express.static("public"));
 
 app.use(methodOverride("_method"));
 
-
-/* app.use((req, res, next) => {
-    res.locals.user = req.session.user;
-    next();
-}); */
 app.use((req, res, next) => {
-
-    console.log("SESSION USER:", req.session.user);
-    
     res.locals.user = req.session.user;
-
     next();
-});
+}); 
+
 
 // HOME PAGE
 app.get("/", async (req, res) => {

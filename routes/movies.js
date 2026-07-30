@@ -48,7 +48,7 @@ router.get("/", async (req, res) => {
 
     const movies = await moviesQuery;
 
-    res.render("movies/list", {
+    res.render("movies/collection", {
         movies,
         total: movies.length,
         filters: {

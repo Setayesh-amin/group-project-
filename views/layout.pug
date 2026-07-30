@@ -55,7 +55,6 @@ html(lang="en")
 
 
   body
-  - console.log("LAYOUT USER:", user)
     header.site-header
       .nav-wrap
         a.brand(href="/" aria-label="ReelVault home")
@@ -80,22 +79,29 @@ html(lang="en")
           span
           span
 
-        p DEBUG USER: #{user}
-
         nav.site-nav(aria-label="Main navigation")
-          a.active(href="/movies")
-            | Collection
+          a(href="/")
+            | HOME
+          a(href="/movies")
+            | COLLECTION
 
           if user
             a(
               href="/movies/add"
             )
-              | Add movie
+              | ADD MOVIE
 
+          if user
             a(
               href="/movies/my"
             )
-              | My movies
+              | MY MOVIES
+          else
+            a(
+              href="/login"
+            )
+              | MY MOVIES
+
 
         .nav-actions
           if user
@@ -114,7 +120,7 @@ html(lang="en")
               href="/register"
             )
               span Join ReelVault
-              span.button-arrow ↗
+              
 
     main
       block content
