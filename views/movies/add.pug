@@ -1,15 +1,79 @@
-h1 Add Movie
+extends ../layout
 
-form(method="POST")
+block content
 
-    input(type="text" name="name")
+  section.movie-form-page
+    .container
 
-    textarea(name="description")
+      .movie-form-card
 
-    input(type="number" name="year")
+        h1 Add Movie
 
-    input(type="text" name="genres")
+        form.movie-form(method="POST")
 
-    input(type="number" name="rating")
+          label(for="name")
+            | Movie Name
 
-    button Save
+          input#name(
+            type="text"
+            name="name"
+            placeholder="Movie title"
+          )
+
+
+          label(for="poster")
+            | Poster URL
+
+          input#poster(
+            type="text"
+            name="poster"
+            placeholder="Poster image URL"
+          )
+
+
+          label(for="description")
+            | Description
+
+          textarea#description(
+            name="description"
+            placeholder="Movie description"
+          )
+
+
+          label(for="year")
+            | Release Year
+
+          input#year(
+            type="number"
+            name="year"
+            placeholder="Year"
+          )
+
+
+          fieldset.genre-field
+            legend Genre
+            .genre-options
+                each genre in genres
+                    label.genre-check
+                        input(
+                        type="checkbox"
+                        name="genres"
+                        value=genre
+                        )
+
+                        span= genre
+
+          label(for="rating")
+            | Rating
+
+          input#rating(
+            type="number"
+            name="rating"
+            placeholder="0 - 10"
+          )
+
+
+          button.button(
+            type="submit"
+          )
+            | Save Movie

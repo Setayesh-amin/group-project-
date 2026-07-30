@@ -2,14 +2,39 @@ h1 Edit Movie
 
 form(method="POST")
 
-    input(type="text" name="name" value=movie.name)
+    input(
+        type="text"
+        name="name"
+        value=movie.name
+    )
 
-    textarea(name="description")= movie.description
+    input(
+        type="text"
+        name="poster"
+        value=movie.poster
+        placeholder="Poster image URL"
+    )
 
-    input(type="number" name="year" value=movie.year)
+    textarea(
+        name="description"
+    )= movie.description
 
-    input(type="text" name="genres" value=movie.genres)
+    input(
+        type="number"
+        name="year"
+        value=movie.year
+    )
 
-    input(type="number" name="rating" value=movie.rating)
+    input(
+        type="text"
+        name="genres"
+        value=movie.genres
+    )
+
+    input(
+        type="number"
+        name="rating"
+        value=movie.rating
+    )
 
     button Update

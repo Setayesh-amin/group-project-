@@ -7,6 +7,11 @@ const movieSchema = new mongoose.Schema({
         required:true
     },
 
+    poster:{
+        type:String,
+        required:true
+    },
+
     description:{
         type:String,
         required:true
@@ -18,7 +23,7 @@ const movieSchema = new mongoose.Schema({
     },
 
     genres:{
-        type:String,
+        type:[String],
         required:true
     },
 

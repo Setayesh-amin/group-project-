@@ -105,6 +105,8 @@ html(lang="en")
 
         .nav-actions
           if user
+            span.welcome-user
+              | Welcome, #{user.name}
             a.login-link(
               href="/logout"
             )

@@ -1,13 +1,46 @@
-h1= movie.name
+extends ../layout
 
-p= movie.description
+block content
 
-p= movie.year
+  section.movie-details
+    .container
 
-p= movie.genres
+      .details-card
 
-p= movie.rating
+        .details-poster
+          img(
+            src=movie.poster
+            alt=movie.name
+          )
 
-button(onclick="deleteMovie()") Delete
+        .details-content
 
-script(src="/js/delete.js")
+          p.eyebrow Movie Details
+
+          h1= movie.name
+
+          .details-meta
+            span= movie.year
+            span •
+            span= movie.genres.join(" / ")
+            span •
+            span ★ #{movie.rating}
+
+          p.details-description
+            = movie.description
+
+
+          if sessionUser && movie.owner.toString() === sessionUser._id.toString()
+
+            .details-actions
+              a.button(href=`/movies/${movie._id}/edit`)
+                | Edit Movie
+
+              form(
+                action=`/movies/${movie._id}?_method=DELETE`
+                method="POST"
+              )
+                button.button.delete-button(
+                  type="submit"
+                )
+                  | Delete

@@ -7,6 +7,22 @@ const isOwner = require("../middleware/owner");
 
 const router = express.Router();
 
+const genres = [
+    "Action",
+    "Adventure",
+    "Animation",
+    "Comedy",
+    "Crime/Mystery",
+    "Drama",
+    "Family",
+    "Fantasy",
+    "Historical",
+    "Horror",
+    "Romance",
+    "Sci-Fi",
+    "Thriller"
+];
+
 
 //GET All Movies
 router.get("/", async (req, res) => {
@@ -65,13 +81,13 @@ router.get("/", async (req, res) => {
 router.get("/add", isAuthenticated, (req, res) => {
     res.render("movies/add", {
         errors: [],
-        movie: {}
+        movie: {},
+        genres
     });
 });
 
 
-
-// POST Add Movie
+//POST Add Movie
 router.post(
     "/add",
     isAuthenticated,
@@ -80,6 +96,10 @@ router.post(
         body("name")
             .notEmpty()
             .withMessage("Movie name is required"),
+
+        body("poster")
+            .notEmpty()
+            .withMessage("Poster URL is required"),
 
         body("description")
             .notEmpty()
@@ -90,8 +110,8 @@ router.post(
             .withMessage("Enter a valid year"),
 
         body("genres")
-            .notEmpty()
-            .withMessage("Genre is required"),
+            .isArray({ min: 1 })
+            .withMessage("Select at least one genre"),
 
         body("rating")
             .isFloat({ min: 0, max: 10 })
@@ -104,15 +124,19 @@ router.post(
         if (!errors.isEmpty()) {
             return res.render("movies/add", {
                 errors: errors.array(),
-                movie: req.body
+                movie: req.body,
+                genres
             });
         }
 
         const movie = new Movie({
             name: req.body.name,
+            poster: req.body.poster,
             description: req.body.description,
             year: req.body.year,
-            genres: req.body.genres,
+            genres: Array.isArray(req.body.genres)
+                ? req.body.genres
+                : [req.body.genres],
             rating: req.body.rating,
             owner: req.session.user._id
 
@@ -191,6 +215,7 @@ router.post(
             req.params.id,
             {
                 name: req.body.name,
+                poster: req.body.poster,
                 description: req.body.description,
                 year: req.body.year,
                 genres: req.body.genres,
@@ -205,7 +230,7 @@ router.post(
 
 
 
-// DELETE Movie
+//DELETE Movie
 router.delete(
     "/:id",
     isAuthenticated,
