@@ -159,7 +159,8 @@ router.get("/:id", async (req, res) => {
     }
 
     res.render("movies/details", {
-        movie
+        movie,
+        sessionUser: req.session.user
     });
 });
 
@@ -171,7 +172,8 @@ router.get("/:id/edit", isAuthenticated, isOwner, async (req, res) => {
 
     res.render("movies/edit", {
         movie,
-        errors: []
+        errors: [],
+        genres
     });
 });
 

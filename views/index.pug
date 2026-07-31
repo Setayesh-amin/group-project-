@@ -30,16 +30,14 @@ block content
           each movie, index in movies
             article.movie-card
               .poster
-                img.movie-image(
-                  src="/images/default.jpg"
-                  alt=movie.name
-                )
+                a(href=`/movies/${movie._id}`)
+                  img.movie-image(
+                    src=movie.poster
+                    alt=movie.name + " poster"
+                  )
 
-                span.poster-number
-                  = String(index + 1).padStart(2, "0")
-
-                span.rating-badge
-                  | ★ #{movie.rating}
+                  span.rating-badge
+                    | ★ #{movie.rating}
 
               .movie-card-body
                 .movie-meta
@@ -53,8 +51,7 @@ block content
                 p= movie.description
 
                 .card-footer
-                  span Recently Added
-
+                  span Movie Details
                   a(href=`/movies/${movie._id}`)
                     | View →
 

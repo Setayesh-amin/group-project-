@@ -19,7 +19,6 @@ block content
               option(value=item selected=filters.genre === item)= item
           label.sr-only(for="sort") Sort movies
           select#sort(name="sort" onchange="this.form.submit()")
-            option(value="featured" selected=filters.sort === 'featured') Featured
             option(value="rating" selected=filters.sort === 'rating') Top rated
             option(value="newest" selected=filters.sort === 'newest') Newest
             option(value="title" selected=filters.sort === 'title') A–Z
@@ -30,16 +29,14 @@ block content
           each movie, index in movies
             article.movie-card
               .poster
-                img.movie-image(
-                  src=movie.poster
-                  alt=movie.name
-                )
+                a(href=`/movies/${movie._id}`)
+                  img.movie-image(
+                    src=movie.poster
+                    alt=movie.name + " poster"
+                  )
 
-                span.poster-number
-                  = String(index + 1).padStart(2, "0")
-
-                span.rating-badge
-                  | ★ #{movie.rating}
+                  span.rating-badge
+                    | ★ #{movie.rating}
 
 
               .movie-card-body
