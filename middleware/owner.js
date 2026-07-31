@@ -1,13 +1,21 @@
 const Movie=require("../models/Movie");
 
 async function isOwner(req,res,next){
-    const movie=await Movie.findById(req.params.id);
+    try {
+        const movie=await Movie.findById(req.params.id);
 
-    if(movie.owner.equals(req.session.user._id)){
-        return next();
+        if (!movie) {
+            return res.status(404).send("Movie not found");
+        }
+
+        if (movie.owner && movie.owner.equals(req.session.user._id)) {
+            return next();
+        }
+
+        return res.status(403).send("Unauthorized");
+    } catch (err) {
+        return next(err);
     }
-
-    res.status(403).send("Unauthorized");
 }
 
 module.exports=isOwner;

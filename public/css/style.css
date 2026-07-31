@@ -787,6 +787,16 @@ h1 em {
   margin-top: 40px;
 }
 
+.details-actions form,
+.delete-form {
+  margin: 0;
+}
+
+.delete-form {
+  max-width: 600px;
+  margin: 18px auto 0;
+}
+
 .edit-actions {
   display: flex;
   gap: 16px;

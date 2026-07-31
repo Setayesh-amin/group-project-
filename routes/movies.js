@@ -65,6 +65,7 @@ router.get("/", async (req, res) => {
     const movies = await moviesQuery;
 
     res.render("movies/collection", {
+        title: "Browse Movies",
         movies,
         total: movies.length,
         filters: {
@@ -84,6 +85,26 @@ router.get("/add", isAuthenticated, (req, res) => {
         movie: {},
         genres
     });
+});
+
+
+// GET Movies Added By The Current User
+// This route must stay above /:id so "my" is not treated as a MongoDB id.
+router.get("/my", isAuthenticated, async (req, res, next) => {
+    try {
+        const movies = await Movie.find({ owner: req.session.user._id })
+            .sort({ _id: -1 });
+
+        res.render("movies/collection", {
+            title: "My Movies",
+            movies,
+            total: movies.length,
+            filters: { q: "", genre: "", sort: "newest" },
+            isMyMovies: true
+        });
+    } catch (err) {
+        next(err);
+    }
 });
 
 
@@ -159,6 +180,7 @@ router.get("/:id", async (req, res) => {
     }
 
     res.render("movies/details", {
+        title: movie.name,
         movie,
         sessionUser: req.session.user
     });
@@ -240,7 +262,7 @@ router.delete(
 
     async (req, res) => {
         await Movie.findByIdAndDelete(req.params.id);
-        res.sendStatus(200);
+        res.redirect(303, "/movies");
     }
 
 );

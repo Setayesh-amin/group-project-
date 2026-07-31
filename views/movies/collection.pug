@@ -5,24 +5,31 @@ block content
     .container
       .section-heading
         div
-          p.eyebrow Discover
-          h2 Browse the collection
+          if isMyMovies
+            p.eyebrow Your collection
+            h2 My Movies
+          else
+            p.eyebrow Discover
+            h2 Browse the collection
 
-        //MOVIE FITLER
-        form.filters(action="/movies" method="get")
-          label.sr-only(for="search") Search movies
-          input#search(type="search" name="q" value=filters.q placeholder="Search by title or story…")
-          label.sr-only(for="genre") Filter by genre
-          select#genre(name="genre" onchange="this.form.submit()")
-            option(value="") All genres
-            each item in ['Animation', 'Comedy', 'Drama', 'Fantasy', 'Sci-Fi', 'Thriller']
-              option(value=item selected=filters.genre === item)= item
-          label.sr-only(for="sort") Sort movies
-          select#sort(name="sort" onchange="this.form.submit()")
-            option(value="rating" selected=filters.sort === 'rating') Top rated
-            option(value="newest" selected=filters.sort === 'newest') Newest
-            option(value="title" selected=filters.sort === 'title') A–Z
-          button.icon-button(type="submit" aria-label="Search") →
+        if isMyMovies
+          a.button(href="/movies/add") Add Movie
+        else
+          // MOVIE FILTER
+          form.filters(action="/movies" method="get")
+            label.sr-only(for="search") Search movies
+            input#search(type="search" name="q" value=filters.q placeholder="Search by title or story…")
+            label.sr-only(for="genre") Filter by genre
+            select#genre(name="genre" onchange="this.form.submit()")
+              option(value="") All genres
+              each item in ['Animation', 'Comedy', 'Drama', 'Fantasy', 'Sci-Fi', 'Thriller']
+                option(value=item selected=filters.genre === item)= item
+            label.sr-only(for="sort") Sort movies
+            select#sort(name="sort" onchange="this.form.submit()")
+              option(value="rating" selected=filters.sort === 'rating') Top rated
+              option(value="newest" selected=filters.sort === 'newest') Newest
+              option(value="title" selected=filters.sort === 'title') A–Z
+            button.icon-button(type="submit" aria-label="Search") →
 
       if movies.length
         .movie-grid
@@ -62,8 +69,12 @@ block content
         .empty-state
           span.empty-mark ★
 
-          h3 No Movies Found
-          p Help us grow our collection.
+          if isMyMovies
+            h3 You Haven't Added Any Movies Yet
+            p Add your first movie to start your personal collection.
+          else
+            h3 No Movies Found
+            p Try another search or help us grow the collection.
 
           a.button(href="/movies/add")
             | Add Movie
