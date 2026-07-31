@@ -752,6 +752,7 @@ h1 em {
 }
 
 .details-content .eyebrow {
+  font-size: 1.2rem;
   color: var(--accent);
   margin-bottom: 18px;
 }
@@ -766,9 +767,8 @@ h1 em {
   flex-wrap: wrap;
   gap: 12px;
   margin-bottom: 32px;
-
   color: var(--muted);
-  font-size: .8rem;
+  font-size: 1rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: .12em;
@@ -777,7 +777,7 @@ h1 em {
 .details-description {
   max-width: 650px;
   color: var(--muted);
-  font-size: 1.05rem;
+  font-size: 1.2rem;
   line-height: 1.8;
 }
 
