@@ -22,7 +22,7 @@ block content
             label.sr-only(for="genre") Filter by genre
             select#genre(name="genre" onchange="this.form.submit()")
               option(value="") All genres
-              each item in ['Animation', 'Comedy', 'Drama', 'Fantasy', 'Sci-Fi', 'Thriller']
+              each item in ['Action', 'Adventure', 'Animation', 'Comedy', 'Crime/Mystery', 'Drama', 'Family', 'Fantasy', 'Historical', 'Horror', 'Romance', 'Sci-Fi', 'Thriller']
                 option(value=item selected=filters.genre === item)= item
             label.sr-only(for="sort") Sort movies
             select#sort(name="sort" onchange="this.form.submit()")

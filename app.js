@@ -16,7 +16,7 @@ mongoose.connect("mongodb://127.0.0.1/movieDB")
     .then(async () => {
         // Add only missing starter movies, so restarting never creates duplicates.
         await Promise.all(defaultMovies.map(({ name, ...movie }) =>
-            Movie.updateOne({ name }, { $setOnInsert: { name, ...movie } }, { upsert: true })
+            Movie.updateOne({ name }, { $set: { name, ...movie } }, { upsert: true })
         ));
         console.log("MongoDB connected and starter movies are ready");
     })
