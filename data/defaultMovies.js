@@ -37,7 +37,7 @@ module.exports = [
         description: "Two families from opposite worlds become unexpectedly intertwined in a sharp and suspenseful story.",
         year: 2019,
         genres: ["Thriller", "Drama"],
-        rating: 8.5
+        rating: 9.3
     },
     {
         name: "The Farewell",

@@ -22,7 +22,8 @@ block content
             span •
             span= movie.genres.join(" / ")
             span •
-            span ★ #{movie.rating}
+            span.details-rating
+              | ★ #{movie.rating}
 
           p.details-description
             = movie.description
