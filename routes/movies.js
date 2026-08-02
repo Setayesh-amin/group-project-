@@ -88,8 +88,7 @@ router.get("/add", isAuthenticated, (req, res) => {
 });
 
 
-// GET Movies Added By The Current User
-// This route must stay above /:id so "my" is not treated as a MongoDB id.
+//GET Movies Added By The Current User
 router.get("/my", isAuthenticated, async (req, res, next) => {
     try {
         const movies = await Movie.find({ owner: req.session.user._id })
