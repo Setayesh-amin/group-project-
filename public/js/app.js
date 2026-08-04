@@ -9,3 +9,4 @@ if (navToggle && siteNav) {
         navToggle.setAttribute("aria-expanded", !expanded);
     });
 }
+// Rolando's part: User interface interactions

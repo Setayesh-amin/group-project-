@@ -12,6 +12,7 @@ const defaultMovies = require("./data/defaultMovies");
 const app = express();
 
 
+// Setayesh's part: MongoDB connection
 mongoose.connect("mongodb://127.0.0.1/movieDB")
     .then(async () => {
         // Add only missing starter movies, so restarting never creates duplicates.

@@ -6,6 +6,7 @@ const User = require("../models/User");
 
 const router = express.Router();
 
+// Alexis's part: Register
 //GET Register Form
 router.get("/register", (req, res) => {
     res.render("auth/register", {
@@ -19,6 +20,7 @@ router.get("/register", (req, res) => {
 router.post(
 "/register",
 
+// Rolando's part: Form validation
 [
     body("name")
         .notEmpty()
@@ -86,6 +88,7 @@ res.redirect("/login");
 });
 
 
+// Alexis's part: Login
 //GET Login Form
 router.get("/login", (req, res) => {
     res.render("auth/login", {
@@ -97,6 +100,7 @@ router.get("/login", (req, res) => {
 //POST Login
 router.post(
     "/login",
+    // Rolando's part: Form validation
     [
         body("email")
             .isEmail()
@@ -152,6 +156,7 @@ router.post(
 );
 
 
+// Alexis's part: Logout
 //GET Logout
 router.get("/logout", (req, res) => {
     req.session.destroy(() => {

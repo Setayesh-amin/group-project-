@@ -48,3 +48,4 @@ module.exports = [
         rating: 7.5
     }
 ];
+// Setayesh's part: Starter movie data

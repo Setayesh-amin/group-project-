@@ -24,6 +24,7 @@ const genres = [
 ];
 
 
+// Rolando's part: Browse movies
 //GET All Movies
 router.get("/", async (req, res) => {
     const q = req.query.q || "";
@@ -78,6 +79,7 @@ router.get("/", async (req, res) => {
 
 
 
+// Setayesh's part: Add movies
 //GET Add Movie Form
 router.get("/add", isAuthenticated, (req, res) => {
     res.render("movies/add", {
@@ -88,7 +90,8 @@ router.get("/add", isAuthenticated, (req, res) => {
 });
 
 
-//GET Movies Added By The Current User
+// Setayesh's part: My Movies
+// GET Movies Added By The Current User
 router.get("/my", isAuthenticated, async (req, res, next) => {
     try {
         const movies = await Movie.find({ owner: req.session.user._id })
@@ -112,6 +115,7 @@ router.post(
     "/add",
     isAuthenticated,
 
+    // Rolando's part: Form validation
     [
         body("name")
             .notEmpty()
@@ -130,7 +134,10 @@ router.post(
             .withMessage("Enter a valid year"),
 
         body("genres")
-            .isArray({ min: 1 })
+            .custom((value) => {
+                const selectedGenres = Array.isArray(value) ? value : [value];
+                return selectedGenres.some(Boolean);
+            })
             .withMessage("Select at least one genre"),
 
         body("rating")
@@ -138,7 +145,7 @@ router.post(
             .withMessage("Rating must be between 0 and 10")
     ],
 
-    async (req, res) => {
+    async (req, res, next) => {
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
@@ -149,22 +156,24 @@ router.post(
             });
         }
 
-        const movie = new Movie({
-            name: req.body.name,
-            poster: req.body.poster,
-            description: req.body.description,
-            year: req.body.year,
-            genres: Array.isArray(req.body.genres)
-                ? req.body.genres
-                : [req.body.genres],
-            rating: req.body.rating,
-            owner: req.session.user._id
+        try {
+            const movie = new Movie({
+                name: req.body.name,
+                poster: req.body.poster,
+                description: req.body.description,
+                year: req.body.year,
+                genres: Array.isArray(req.body.genres)
+                    ? req.body.genres
+                    : [req.body.genres],
+                rating: req.body.rating,
+                owner: req.session.user._id
+            });
 
-        });
-
-        await movie.save();
-
-        res.redirect("/movies");
+            await movie.save();
+            res.redirect("/movies/my");
+        } catch (err) {
+            next(err);
+        }
     }
 );
 
@@ -187,6 +196,7 @@ router.get("/:id", async (req, res) => {
 
 
 
+// Setayesh's part: Edit movies
 //GET Edit Form
 router.get("/:id/edit", isAuthenticated, isOwner, async (req, res) => {
     const movie = await Movie.findById(req.params.id);
@@ -206,6 +216,7 @@ router.post(
     isAuthenticated,
     isOwner,
 
+    // Rolando's part: Form validation
     [
         body("name").notEmpty(),
 
@@ -253,6 +264,7 @@ router.post(
 
 
 
+// Setayesh's part: Delete movies
 //DELETE Movie
 router.delete(
     "/:id",

@@ -1,3 +1,4 @@
+//- Alexis's part: Registration UI
 extends ../layout
 
 block content
@@ -9,6 +10,7 @@ block content
           h2 Create an Account
 
       .auth-card
+        //- Rolando's part: Validation errors
         if errors && errors.length
           .error-box
             each error in errors

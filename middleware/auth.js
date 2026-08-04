@@ -1,3 +1,4 @@
+// Alexis's part: Route protection
 function isAuthenticated(req,res,next){
     if(req.session.user){
         return next();

@@ -1,3 +1,4 @@
+// Alexis's part: User account model
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({

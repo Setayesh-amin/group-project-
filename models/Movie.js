@@ -1,3 +1,4 @@
+// Setayesh's part: Mongoose movie model
 const mongoose = require("mongoose");
 
 const movieSchema = new mongoose.Schema({
