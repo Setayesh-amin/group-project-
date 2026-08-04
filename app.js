@@ -57,10 +57,12 @@ app.get("/", async (req, res) => {
       .sort({ _id: -1 })   // Newest first
       .limit(6);           // Show only the 6 newest
 
+      const movieCount = await Movie.countDocuments();
+
       res.render("index", {
         title: "Home",
         movies,
-        movieCount: movies.length
+        movieCount
       });
 
   } catch (err) {
