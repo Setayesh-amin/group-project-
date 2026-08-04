@@ -118,18 +118,24 @@ router.post(
     // Rolando's part: Form validation
     [
         body("name")
+            .trim()
             .notEmpty()
             .withMessage("Movie name is required"),
 
         body("poster")
+            .trim()
             .notEmpty()
             .withMessage("Poster URL is required"),
 
         body("description")
+            .trim()
             .notEmpty()
             .withMessage("Description is required"),
 
         body("year")
+            .notEmpty()
+            .withMessage("Release year is required")
+            .bail()
             .isInt()
             .withMessage("Enter a valid year"),
 
@@ -141,6 +147,9 @@ router.post(
             .withMessage("Select at least one genre"),
 
         body("rating")
+            .notEmpty()
+            .withMessage("Rating is required")
+            .bail()
             .isFloat({ min: 0, max: 10 })
             .withMessage("Rating must be between 0 and 10")
     ],

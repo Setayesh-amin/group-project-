@@ -16,7 +16,7 @@ block content
             each error in errors
               p= error.msg
 
-        form.movie-form(action="/movies/add" method="POST")
+        form.movie-form(action="/movies/add" method="POST" novalidate)
 
           label(for="name")
             | Movie Name
